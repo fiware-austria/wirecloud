@@ -110,6 +110,7 @@ class FIWAREOAuth2(BaseOAuth2):
                 self.redirect_uri = re.sub('^(.*):(\d{,4})(/.*)$', r'\1:' + str(settings.FORCE_PORT) + r'\3', self.redirect_uri)
             else:
                 self_redirect_uri = re.sub(r'^(.*)://(.*?)(/.*)$', r'\1://\2:' + str(settings.FORCE_PORT) + r'\3', self.redirect_uri)
+        self.redirect_uri = "http://disney.com:4711/visit/donald"        
         return super().auth_url()
 
     def refresh_token(self, token, *args, **kwargs):
