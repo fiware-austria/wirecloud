@@ -100,6 +100,16 @@ class FIWAREOAuth2(BaseOAuth2):
             'Authorization': 'Basic {0}'.format(token)
         }
 
+    def auth_url(self):
+        pdb.set_trace()
+        if hasattr(settings,'FORCE_PORT'):
+            m = re.match('.*:\d{2,4}/.*', self.redirect_uri)
+            if m:
+                self.redirect_uri = re.sub('^(.*):(\d{,4})(/.*)$', r'\1:' + str(settings.FORCE_PORT) + r'\3', self.redirect_uri)
+            else:
+                self_redirect_uri = re.sub(r'^(.*)://(.*?)(/.*)$', r'\1://\2:' + str(settings.FORCE_PORT) + r'\3', self.redirect_uri)
+        return super().auth_url()
+
     def refresh_token(self, token, *args, **kwargs):
         data = super(FIWAREOAuth2, self).refresh_token(token, *args, **kwargs)
         # Save the expiration time
