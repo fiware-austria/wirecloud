@@ -35,6 +35,7 @@ field, check OAuthBackend class for details on how to extend it.
 import base64
 import time
 import re
+import pdb
 from urllib.parse import urljoin
 
 from django.conf import settings
@@ -102,6 +103,7 @@ class FIWAREOAuth2(BaseOAuth2):
         }
 
     def auth_url(self):
+        pdb.set_trace()
         if hasattr(settings,'FORCE_PORT'):
             m = re.match('.*:\d{2,4}/.*', self.redirect_uri)
             if m:
