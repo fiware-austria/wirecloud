@@ -101,7 +101,6 @@ class FIWAREOAuth2(BaseOAuth2):
         }
 
     def auth_url(self):
-        pdb.set_trace()
         if hasattr(settings,'FORCE_PORT'):
             m = re.match('.*:\d{2,4}/.*', self.redirect_uri)
             if m:
