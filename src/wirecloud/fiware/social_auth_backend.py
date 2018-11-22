@@ -103,14 +103,13 @@ class FIWAREOAuth2(BaseOAuth2):
         }
 
     def auth_url(self):
-        pdb.set_trace()
         if hasattr(settings,'FORCE_PORT'):
             m = re.match('.*:\d{2,4}/.*', self.redirect_uri)
             if m:
                 self.redirect_uri = re.sub('^(.*):(\d{,4})(/.*)$', r'\1:' + str(settings.FORCE_PORT) + r'\3', self.redirect_uri)
             else:
                 self_redirect_uri = re.sub(r'^(.*)://(.*?)(/.*)$', r'\1://\2:' + str(settings.FORCE_PORT) + r'\3', self.redirect_uri)
-        self.redirect_uri = "http://disney.com:4711/visit/donald"        
+        self.redirect_uri = "http://disney.com:4711/visit/donald"
         return super().auth_url()
 
     def refresh_token(self, token, *args, **kwargs):
