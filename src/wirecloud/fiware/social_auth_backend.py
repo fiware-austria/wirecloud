@@ -35,7 +35,6 @@ field, check OAuthBackend class for details on how to extend it.
 import base64
 import time
 import re
-import pdb
 from urllib.parse import urljoin
 
 from django.conf import settings
@@ -103,13 +102,15 @@ class FIWAREOAuth2(BaseOAuth2):
         }
 
     def auth_url(self):
+        print('auth_url check redirect_uri')
         if hasattr(settings,'FORCE_PORT'):
+            print("Theres a PORT REQUIRED!")
             m = re.match('.*:\d{2,4}/.*', self.redirect_uri)
             if m:
                 self.redirect_uri = re.sub('^(.*):(\d{,4})(/.*)$', r'\1:' + str(settings.FORCE_PORT) + r'\3', self.redirect_uri)
             else:
                 self_redirect_uri = re.sub(r'^(.*)://(.*?)(/.*)$', r'\1://\2:' + str(settings.FORCE_PORT) + r'\3', self.redirect_uri)
-        self.redirect_uri = "http://disney.com:4711/visit/donald"
+        print('auth_url, redirect_uri = ', self.redirect_uri)
         return super().auth_url()
 
     def refresh_token(self, token, *args, **kwargs):
