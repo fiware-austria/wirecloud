@@ -109,7 +109,7 @@ class FIWAREOAuth2(BaseOAuth2):
             if m:
                 self.redirect_uri = re.sub('^(.*):(\d{,4})(/.*)$', r'\1:' + str(settings.FORCE_PORT) + r'\3', self.redirect_uri)
             else:
-                self_redirect_uri = re.sub(r'^(.*)://(.*?)(/.*)$', r'\1://\2:' + str(settings.FORCE_PORT) + r'\3', self.redirect_uri)
+                self.redirect_uri = re.sub(r'^(.*)://(.*?)(/.*)$', r'\1://\2:' + str(settings.FORCE_PORT) + r'\3', self.redirect_uri)
         print('auth_url, redirect_uri = ', self.redirect_uri)
         return super().auth_url()
 
