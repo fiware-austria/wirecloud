@@ -34,6 +34,7 @@ field, check OAuthBackend class for details on how to extend it.
 
 import base64
 import time
+import re
 from urllib.parse import urljoin
 
 from django.conf import settings
